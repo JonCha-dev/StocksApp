@@ -34,9 +34,10 @@ final class StocksAppTests: XCTestCase {
         
         viewModel.getStocks()
         
-        viewModel.$status
-            .sink { state in
-                XCTAssertEqual(state, .loaded)
+        viewModel.$stocks
+            .sink { stocks in
+                let stock = stocks.first!
+                XCTAssertEqual(stock.ticker, "^GSPC")
                 exp.fulfill()
             }
             .store(in: &cancellables)
